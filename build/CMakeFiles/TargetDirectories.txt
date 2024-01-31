@@ -1,0 +1,3 @@
+/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles/SnakeBR.dir
+/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles/edit_cache.dir
+/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles/rebuild_cache.dir
