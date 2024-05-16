@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "Global.h"
 #include "snake.h"
+#include "AI_snake.h"
+#include "player_snake.h"
 #include <iostream>
 #include <vector>
 #ifndef GAME_H
@@ -15,7 +17,6 @@ class Game {
         global::Map* map;
         short generation;
     public:
-    // creates game loop
         Game();
         ~Game();
         void init();
@@ -28,6 +29,7 @@ class Game {
         void spawn_AI();
         bool are_snakes_dead();
         void end_game();
+        bool draw_start();
         void draw_end_game();
         short get_max_score();
         short get_generation();

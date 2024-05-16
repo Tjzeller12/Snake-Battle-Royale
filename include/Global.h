@@ -7,7 +7,8 @@ namespace global {
     namespace GAME {
         constexpr unsigned short START_FOOD_COUNT = 60;
         constexpr unsigned short FOOD_TIMER_COUNT = 300;
-        constexpr bool TRAINING_MODE = true;
+        extern bool TRAINING_MODE;
+        extern short delay;
     }
     namespace TRAIN {
         constexpr unsigned short GENERATIONS = 100;
@@ -22,7 +23,7 @@ namespace global {
         constexpr unsigned short CELL_SIZE = 10;
         constexpr unsigned short WALL_COUNT = 10;
         constexpr unsigned short WALL_SIZE = 5;
-        extern std::vector<std::vector<short>> map_layout;
+        //extern std::vector<std::vector<short>> map_layout;
     }
 
     namespace WINDOW {
