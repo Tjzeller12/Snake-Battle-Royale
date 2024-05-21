@@ -10,9 +10,10 @@ class Snake {
         std::vector<global::Position> body;
         global::SNAKE::Direction direction;
         global::Map* map_ptr;
-        short score;
+        short score = 0;
         short food_timer;
         Color color;
+        char name[15];
     public:
         Snake(global::Map& i_map);
         Snake(global::Map& i_map, global::SNAKE::Direction direction, global::Position initial_pos);
@@ -20,10 +21,11 @@ class Snake {
         //Ensures correct destructor is called for dirived classes
         virtual ~Snake() = default;
 
-        void set_position();
         void set_direction(global::SNAKE::Direction direction);
         void set_color(Color color);
         Color get_color();
+        void set_name(char name[]);
+        const char* get_name();
         void move();
         void reset();
         virtual void update_direction() = 0;
@@ -39,6 +41,7 @@ class Snake {
         void draw();
         bool in_map(global::Position pos);
         void reset_timer();
+        int compare_to(Snake* snake);
 
         
 };

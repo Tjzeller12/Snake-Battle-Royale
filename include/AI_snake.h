@@ -3,10 +3,6 @@
 
 #include "snake.h"
 #include <eigen3/Eigen/Dense>
-#include "Map_Functions.h"
-#include <random>
-#include <chrono>
-#include "Model.h"
 
 class AI_Snake : public Snake{
     private:

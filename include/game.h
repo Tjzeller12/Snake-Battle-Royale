@@ -12,10 +12,12 @@
 class Game {
     private:
         Window window;
-        //std::vector<std::shared_ptr<Snake>> snakes;
+        Window leaderBoardWindow;
         std::vector<Snake*> snakes;
+        std::vector<Snake*> leaderboard;
         global::Map* map;
         short generation;
+
     public:
         Game();
         ~Game();
@@ -31,9 +33,14 @@ class Game {
         void end_game();
         bool draw_start();
         void draw_end_game();
+        void draw_leader_board();
         short get_max_score();
         short get_generation();
         AI_Snake get_max_wb();
+        int swap(int index1, int index2);
+        int partition(int start, int end);
+        void quick_sort(int start, int end);
+        void sort_snakes();
         
 };
 #endif

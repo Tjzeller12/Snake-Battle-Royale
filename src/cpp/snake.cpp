@@ -1,11 +1,11 @@
 #include "snake.h"
 #include "raylib.h"
-#include "Window.h"
 #include <eigen3/Eigen/Dense>
 #include "Map_Functions.h"
 #include <random>
 #include <chrono>
 #include "Model.h"
+#include <cstring>
 /*
 Initialize map pointer, direction, place on map, and set food timer
 */
@@ -14,6 +14,7 @@ Snake::Snake(global::Map& i_map) {
     direction = global::SNAKE::Up;
     this->body.push_back(map_functions::get_random_empty_position(*map_ptr));
     food_timer = global::GAME::FOOD_TIMER_COUNT;
+    score = 0;
 }
 /*
 Overloaded constructor
@@ -23,6 +24,7 @@ Snake::Snake(global::Map& i_map, global::SNAKE::Direction direction, global::Pos
     this->body.push_back(initial_pos);
     this->direction = direction;
     food_timer = global::GAME::FOOD_TIMER_COUNT;
+    score = 0;
 }
 //Direction setter
 void Snake::set_direction(global::SNAKE::Direction direction) {
@@ -48,6 +50,15 @@ Color Snake::get_color() {
 //Color setter
 void Snake::set_color(Color color) {
     this->color = color;
+}
+//Name setter
+void Snake::set_name(char name[]) {
+    std::strncpy(this->name, name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0';
+}
+//Name getter
+const char* Snake::get_name() {
+    return this->name;
 }
 //For every body part in the body vector, draw a square on map that is the color of the snake
 void Snake::draw() {
@@ -138,8 +149,8 @@ void Snake::try_to_eat() {
         (*map_ptr)[this->body[0].x][this->body[0].y].is_food = false;
         global::Position new_food_pos = map_functions::get_random_empty_position(*map_ptr);
         (*map_ptr)[new_food_pos.x][new_food_pos.y].is_food = true;
-        this->score++;
         this->reset_timer();
+        this->score++;
     } else {
         this->food_timer--;
     }
@@ -158,4 +169,12 @@ std::vector<global::Position>& Snake::get_body() {
 //checks if snake is within the bounderies and returns the result
 bool Snake::in_map(global::Position pos) {
     return 0 <= pos.x && 0 <= pos.y && global::MAP::COLUMNS > pos.x && global::MAP::ROWS > pos.y;
+}
+//Compares the snakes scores. If they are tied then it compares their names
+int Snake::compare_to(Snake* snake) {
+    if(this->get_score() != snake->get_score()) {
+        return this->get_score() - snake->get_score();
+    } else {
+        return strcmp(this->get_name(), snake->get_name());
+    }
 }

@@ -3,6 +3,7 @@
 #include "game.h"
 #include <thread>
 #include <chrono>
+
 int main() {
     // Initialization
     Game game = Game();
@@ -14,6 +15,7 @@ int main() {
         if (!game_ended) {
             game.update();
             game.draw();
+        
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(global::GAME::delay));
         //End game if all snakes are dead and we have not reached the maximum generations

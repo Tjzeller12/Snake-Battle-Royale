@@ -26,10 +26,6 @@ namespace global {
         //extern std::vector<std::vector<short>> map_layout;
     }
 
-    namespace WINDOW {
-        constexpr unsigned short height = 700;
-        constexpr unsigned short width = 1200;
-    }
     namespace SNAKE {
         constexpr unsigned short START_LENGTH = 5;
         constexpr unsigned short START_SPEED = 5;
@@ -40,6 +36,12 @@ namespace global {
             Left,
             Down
         };
+    }
+    namespace WINDOW {
+        constexpr unsigned short height = 700;
+        constexpr unsigned short width = 1200;
+        //constexpr unsigned short LBheight = 15 * SNAKE::START_SNAKE_AI_COUNT + 15;
+        constexpr unsigned short LBwidth = 175;
     }
     struct Position {
         short x;

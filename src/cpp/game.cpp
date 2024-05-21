@@ -1,11 +1,6 @@
-#include "Global.h"
 #include "game.h"
-#include "raylib.h"
 #include "Window.h"
 #include <iostream>
-#include "snake.h"
-#include "player_snake.h"
-#include "AI_snake.h"
 #include "Map_Functions.h"
 #include "eigen3/Eigen/Dense"
 #include <cstdio>
@@ -14,7 +9,7 @@ using std::vector;
 namespace global {
     namespace GAME {
         bool TRAINING_MODE = false;
-        short delay = 120;
+        short delay = 125;
     }
 }
 /*
@@ -22,7 +17,8 @@ Create a new window. Make a mpa. Then place objects on the map
 */
 Game::Game() {
     generation = 0;
-    window = Window(global::WINDOW::width, global::WINDOW::height, "Snake Battle Royale");
+    window = Window(global::WINDOW::width + global::WINDOW::LBwidth, global::WINDOW::height, "Snake Battle Royale");
+    //leaderBoardWindow = Window(global::WINDOW::LBwidth, global::WINDOW::LBheight, "Leader Board");
     // Draw the map and set walls
     map = new global::Map();
     // Set all of the walls
@@ -59,12 +55,14 @@ void Game::init() {
     window.init();
     window.positionWindowOnSecondMonitor();
     window.setTargetFPS(60);
+
     bool game_started = false;
     //draw game startscreen until user select mode
     while(!game_started) {
         game_started = draw_start();
     }
     this->make_snakes();
+    this->leaderboard = this->snakes;
 }
 /*
 Updates the map and the snakes.
@@ -100,11 +98,11 @@ void Game::draw() {
         }
     }
     //Draw grid lines
-    for (int i = 0; i < window.getScreenWidth(); i += 10) {
-        DrawLine(i, 0, i, window.getScreenHeight(), Color{3, 0, 60, 255});
+    for (int i = 0; i < global::WINDOW::width; i += 10) {
+        DrawLine(i, 0, i, global::WINDOW::height, Color{3, 0, 60, 255});
     }
-    for (int i = 0; i < window.getScreenHeight(); i += 10) {
-        DrawLine(0, i, window.getScreenWidth(), i, Color{3, 0, 60, 255});
+    for (int i = 0; i < global::WINDOW::height; i += 10) {
+        DrawLine(0, i, global::WINDOW::width, i, Color{3, 0, 60, 255});
     }
     //Add shadows on the boarders
     int shadow_width = 1;
@@ -113,22 +111,84 @@ void Game::draw() {
     for (int i = 0; i < max_distance; i++) {
         // make color rgb 0, 0, 0, 0.2
         float alpha = shadow_intensity * (1 - ((float)i / max_distance));
-        DrawRectangle(0, i, window.getScreenWidth(), shadow_width, Fade(BLACK, alpha));
-        DrawRectangle(i, 0, shadow_width, window.getScreenHeight(), Fade(BLACK, alpha));
-        DrawRectangle(window.getScreenWidth() - i, 0, shadow_width, window.getScreenHeight(), Fade(BLACK, alpha));
-        DrawRectangle(0, window.getScreenHeight() - i, window.getScreenWidth(), shadow_width, Fade(BLACK, alpha));   
+        DrawRectangle(0, i, global::WINDOW::width, shadow_width, Fade(BLACK, alpha));
+        DrawRectangle(i, 0, shadow_width, global::WINDOW::height, Fade(BLACK, alpha));
+        DrawRectangle(global::WINDOW::width - i, 0, shadow_width, global::WINDOW::height, Fade(BLACK, alpha));
+        DrawRectangle(0, global::WINDOW::height - i, global::WINDOW::width, shadow_width, Fade(BLACK, alpha));   
     }
-    //Draw and set player snakes color
-    snakes[0]->set_color(Color{0, 255, 0, 255});
-    snakes[0]->draw();
+
     //Draw and set AI snakes colors
-    for (int i = 1; i <= global::SNAKE::START_SNAKE_AI_COUNT; i++) {
-        snakes[i]->set_color(Color{0, static_cast<unsigned char>(i * (180/global::SNAKE::START_SNAKE_AI_COUNT) + 50), 0, 255});
+    for (int i = 0; i < snakes.size(); i++) {
         snakes[i]->draw();
         
     }
+    //Draw leaderboard
+    sort_snakes();
+    for(int i = 0; i < leaderboard.size(); i++) {
+        Snake* currSnake = leaderboard[i];
+        Color rectangleColor;
+        //Snake blocks will be on the right of the game, and they will take up an equal amount of space that depends on the amount of snakes we have
+        Rectangle currentSnakeBlock = {global::WINDOW::width, static_cast<float>(global::WINDOW::height / leaderboard.size()) * i, global::WINDOW::LBwidth, static_cast<float>(global::WINDOW::height / leaderboard.size())};
+        //Have every other row be a different color
+        if(i % 2 == 0) {
+            rectangleColor = Color{1, 0, 30, 255};
+        } else {
+            rectangleColor = Color{3, 0, 60, 255};
+        }
+        DrawRectangleRec(currentSnakeBlock, rectangleColor);
+        //Draw the snakes color, name, and score in the snake block
+        DrawText(currSnake->get_name(), currentSnakeBlock.x + 12, currentSnakeBlock.y, 5, WHITE);
+        char scoreText[50];
+        snprintf(scoreText, sizeof(scoreText), "%d", currSnake->get_score());
+        DrawText(scoreText, currentSnakeBlock.x + 150, currentSnakeBlock.y, 5, WHITE);
+        //Draw snake color
+        DrawRectangle(global::WINDOW::width + 1, ((global::WINDOW::height / leaderboard.size()) * i) + 1, (global::WINDOW::height / leaderboard.size()) -2, (global::WINDOW::height / leaderboard.size()) - 2, currSnake->get_color());
+    }
     window.endDrawing();
 }
+/*
+This function sorts the leaderboard so we can display the snakes in order by score.
+I implemented a quick sort algorithm.
+*/
+void Game::sort_snakes() {
+    quick_sort(0, leaderboard.size() - 1);
+}
+//Recurisive quick sort algorithm
+void Game::quick_sort(int start, int end) {
+    if(start < end) {
+        int partitionIndex = partition(start, end);
+        quick_sort(start, partitionIndex - 1);
+        quick_sort(partitionIndex + 1, end);
+    }
+
+}
+//Quick sort helper method. Partitions list using the start index as the pivot
+int Game::partition(int start, int end) {
+    int pivot = start;
+    int left = start + 1;
+    int right = end;
+    while(left <= right) {
+        while(left <= right && leaderboard[left]->compare_to(leaderboard[pivot]) >= 0) {
+            left++;
+        }
+        while(left <= right && leaderboard[right]->compare_to(leaderboard[pivot]) < 0) {
+            right--;
+        }
+        if(left < right) {
+            swap(left, right);
+        }
+    }
+    //Move pivot into place
+    swap(right, pivot);
+    return right;
+}
+//Quick sort helper method. Swaps two elements in the vector
+int Game::swap(int index1, int index2) {
+    Snake* temp = leaderboard[index1];
+    leaderboard[index1] = leaderboard[index2];
+    leaderboard[index2] = temp;
+}
+
 /*
 Initializes every snake and appends them to the snakes vector.
 */
@@ -136,11 +196,17 @@ void Game::make_snakes() {
     //Make player snake
     global::Position player_position(60, 6);
     Snake* player_snake = new Player_Snake(*map, global::SNAKE::Down, player_position);
+    player_snake->set_name("Player Snake");
+    player_snake->set_color(Color{0, 255, 0, 255});
     snakes.push_back(player_snake);
+    char buffer[15];
     //Make AI snakes
     for (int i = 1; i <= global::SNAKE::START_SNAKE_AI_COUNT; i++) {
         global::Position current_pos = map_functions::get_random_empty_position(*map);
         Snake* current_snake = new AI_Snake(*map, global::SNAKE::Down, current_pos);
+        snprintf(buffer, sizeof(buffer), "AI snake %d", i);
+        current_snake->set_name(buffer);
+        current_snake->set_color(Color{0, static_cast<unsigned char>(i * (180/global::SNAKE::START_SNAKE_AI_COUNT) + 50), 0, 255});
         snakes.push_back(current_snake);
     }
 
@@ -153,6 +219,7 @@ short Game::get_generation() {
 void Game::close() {
     // De-Initialization
     window.close();
+    //leaderBoardWindow.close();
 }
 //Checks to see if the window should close
 bool Game::shouldClose() {
@@ -172,10 +239,20 @@ void Game::train() {
             ai_snake->set_child_weights_bias(parent1, parent2);
         }
     }
+    //reset scores
+    for(int i = 0; i < snakes.size(); i++) {
+        snakes[i]->set_score(0);
+    }
     // respond snakes
     spawn_AI();
     generation++;
 }
+/*
+This draws the start screen. The start screen is made up of two buttons. There is a play game button that allows the
+user to play against snake AI's that have predetermined weights and biases. There is also a training mode button that
+allows the user to train the snakes that start with random weights. After each generation the top snakes weights and
+biases are printed to the console so we can set the predetermined weights and biases for the game.
+*/
 bool Game::draw_start() {
     Rectangle playButton = {global::WINDOW::width/2 - 150, global::WINDOW::height/2 - 50, 175, 50};
     Rectangle trainButton = {global::WINDOW::width/2 + 50, global::WINDOW::height/2 -50, 175, 50};
@@ -184,6 +261,7 @@ bool Game::draw_start() {
     Color trainColor =  {0, 255, 0, 255};
     bool start = false;
     Vector2 mousePointer = GetMousePosition();
+    //Play button mouse check
     if(CheckCollisionPointRec(mousePointer, playButton)) {
         playColor = {0, 255, 0, 200};
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
@@ -192,6 +270,7 @@ bool Game::draw_start() {
             global::GAME::delay = 120;
         }
     }
+    //Training button mouse check
     if(CheckCollisionPointRec(mousePointer, trainButton)) {
         trainColor = {0, 255, 0, 200};
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
@@ -203,6 +282,7 @@ bool Game::draw_start() {
     //Button text
     const char* play_text = "Play Game";
     const char* train_text = "Training Mode";
+    //Draw buttons
     BeginDrawing();
     ClearBackground(Color{3, 0, 60, 255});
     DrawRectangleRec(playButton, playColor);
@@ -253,6 +333,7 @@ void Game::draw_end_game() {
     DrawText(AI_score_text, global::WINDOW::width/2 - AIs_text_width/2, global::WINDOW::height * 3/4, 40, RED);
     EndDrawing();
 }
+//Finds the maximum score in the snakes vector
 short Game::get_max_score() {
     short max = 0;
     for(int i = 1; i < snakes.size(); i++) {
@@ -260,13 +341,15 @@ short Game::get_max_score() {
     }
     return max;
 }
+//Goes through the snakes list and respawns each AI snake
 void Game::spawn_AI() {
-     for (int i = 1; i <= global::SNAKE::START_SNAKE_AI_COUNT; i++) {
+    //Index starts at 1 because index 0 is reserved for the player snake
+    for (int i = 1; i <= global::SNAKE::START_SNAKE_AI_COUNT; i++) {
         global::Position current_pos = map_functions::get_random_empty_position(*map);
         snakes[i]->reset_timer();
         snakes[i]->get_body().clear();
         snakes[i]->get_body().push_back(current_pos);
-     }
+    }
 }
 /*
 Iterates though each snake to check if it is dead. This function allows us to check

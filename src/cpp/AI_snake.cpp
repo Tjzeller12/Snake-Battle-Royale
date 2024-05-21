@@ -1,4 +1,8 @@
 #include "AI_snake.h"
+#include "Map_Functions.h"
+#include <random>
+#include <chrono>
+#include "Model.h"
 //Overloaded constructor
 AI_Snake::AI_Snake(global::Map& i_map) :
 //Set weights and baises and map pointer
