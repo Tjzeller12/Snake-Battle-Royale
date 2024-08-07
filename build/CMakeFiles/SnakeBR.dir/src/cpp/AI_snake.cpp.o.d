@@ -1,6 +1,7 @@
-CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: \
-  /Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp \
-  /Users/thomaszeller/Desktop/SnakeBR/include/game.h \
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o: \
+  /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp \
+  /Users/thomaszeller/Desktop/SnakeBR/include/AI_snake.h \
+  /Users/thomaszeller/Desktop/SnakeBR/include/snake.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/raylib.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/Window.h \
@@ -929,9 +930,6 @@ CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: \
   /Users/thomaszeller/Desktop/SnakeBR/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/eigen3/Eigen/src/Eigenvalues/./RealQZ.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
-  /Users/thomaszeller/Desktop/SnakeBR/include/snake.h \
-  /Users/thomaszeller/Desktop/SnakeBR/include/AI_snake.h \
-  /Users/thomaszeller/Desktop/SnakeBR/include/player_snake.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/Map_Functions.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/random \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/bernoulli_distribution.h \
@@ -980,4 +978,5 @@ CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/subtract_with_carry_engine.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/seed_seq.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/student_t_distribution.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/weibull_distribution.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/__random/weibull_distribution.h \
+  /Users/thomaszeller/Desktop/SnakeBR/include/Model.h

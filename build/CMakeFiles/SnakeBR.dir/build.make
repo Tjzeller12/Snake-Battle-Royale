@@ -69,10 +69,24 @@ include CMakeFiles/SnakeBR.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/SnakeBR.dir/flags.make
 
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp
+
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp > CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.i
+
+CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp -o CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.s
+
 CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
 CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp
 CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp
 
 CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.i: cmake_force
@@ -86,7 +100,7 @@ CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.s: cmake_force
 CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
 CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp
 CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp
 
 CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.i: cmake_force
@@ -97,10 +111,24 @@ CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp -o CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.s
 
+CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
+CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp
+CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp
+
+CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp > CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.i
+
+CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp -o CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.s
+
 CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
 CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/snake.cpp
 CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/snake.cpp
 
 CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.i: cmake_force
@@ -114,7 +142,7 @@ CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.s: cmake_force
 CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o: CMakeFiles/SnakeBR.dir/flags.make
 CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o: /Users/thomaszeller/Desktop/SnakeBR/src/cpp/window.cpp
 CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o: CMakeFiles/SnakeBR.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o -MF CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o.d -o CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/window.cpp
 
 CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.i: cmake_force
@@ -127,22 +155,26 @@ CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.s: cmake_force
 
 # Object files for target SnakeBR
 SnakeBR_OBJECTS = \
+"CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o" \
 "CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o" \
 "CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o" \
+"CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o" \
 "CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o" \
 "CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o"
 
 # External object files for target SnakeBR
 SnakeBR_EXTERNAL_OBJECTS =
 
+SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o
 SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o
 SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o
+SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o
 SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o
 SnakeBR: CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o
 SnakeBR: CMakeFiles/SnakeBR.dir/build.make
 SnakeBR: /Users/thomaszeller/Desktop/SnakeBR/lib/libraylib.a
 SnakeBR: CMakeFiles/SnakeBR.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable SnakeBR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable SnakeBR"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SnakeBR.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

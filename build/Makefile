@@ -129,6 +129,30 @@ SnakeBR/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/build
 .PHONY : SnakeBR/fast
 
+src/cpp/AI_snake.o: src/cpp/AI_snake.cpp.o
+.PHONY : src/cpp/AI_snake.o
+
+# target to build an object file
+src/cpp/AI_snake.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o
+.PHONY : src/cpp/AI_snake.cpp.o
+
+src/cpp/AI_snake.i: src/cpp/AI_snake.cpp.i
+.PHONY : src/cpp/AI_snake.i
+
+# target to preprocess a source file
+src/cpp/AI_snake.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.i
+.PHONY : src/cpp/AI_snake.cpp.i
+
+src/cpp/AI_snake.s: src/cpp/AI_snake.cpp.s
+.PHONY : src/cpp/AI_snake.s
+
+# target to generate assembly for a file
+src/cpp/AI_snake.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.s
+.PHONY : src/cpp/AI_snake.cpp.s
+
 src/cpp/game.o: src/cpp/game.cpp.o
 .PHONY : src/cpp/game.o
 
@@ -176,6 +200,30 @@ src/cpp/main.s: src/cpp/main.cpp.s
 src/cpp/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.s
 .PHONY : src/cpp/main.cpp.s
+
+src/cpp/player_snake.o: src/cpp/player_snake.cpp.o
+.PHONY : src/cpp/player_snake.o
+
+# target to build an object file
+src/cpp/player_snake.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o
+.PHONY : src/cpp/player_snake.cpp.o
+
+src/cpp/player_snake.i: src/cpp/player_snake.cpp.i
+.PHONY : src/cpp/player_snake.i
+
+# target to preprocess a source file
+src/cpp/player_snake.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.i
+.PHONY : src/cpp/player_snake.cpp.i
+
+src/cpp/player_snake.s: src/cpp/player_snake.cpp.s
+.PHONY : src/cpp/player_snake.s
+
+# target to generate assembly for a file
+src/cpp/player_snake.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.s
+.PHONY : src/cpp/player_snake.cpp.s
 
 src/cpp/snake.o: src/cpp/snake.cpp.o
 .PHONY : src/cpp/snake.o
@@ -234,12 +282,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SnakeBR"
+	@echo "... src/cpp/AI_snake.o"
+	@echo "... src/cpp/AI_snake.i"
+	@echo "... src/cpp/AI_snake.s"
 	@echo "... src/cpp/game.o"
 	@echo "... src/cpp/game.i"
 	@echo "... src/cpp/game.s"
 	@echo "... src/cpp/main.o"
 	@echo "... src/cpp/main.i"
 	@echo "... src/cpp/main.s"
+	@echo "... src/cpp/player_snake.o"
+	@echo "... src/cpp/player_snake.i"
+	@echo "... src/cpp/player_snake.s"
 	@echo "... src/cpp/snake.o"
 	@echo "... src/cpp/snake.i"
 	@echo "... src/cpp/snake.s"

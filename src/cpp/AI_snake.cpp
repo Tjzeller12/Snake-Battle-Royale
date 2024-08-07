@@ -3,24 +3,26 @@
 #include <random>
 #include <chrono>
 #include "Model.h"
-//Overloaded constructor
-AI_Snake::AI_Snake(global::Map& i_map) :
-//Set weights and baises and map pointer
-    Snake(i_map),
-    weights1(8, global::TRAIN::HL_COUNT), //Make 8X(hidden layer count) matrix
-    weights2(global::TRAIN::HL_COUNT, 3), //Make (hidden layer count)X3 matrix
-    bias1(Eigen::MatrixXd::Zero(1, global::TRAIN::HL_COUNT)), //Make a 1X(hidden layer count) matrix
-    bias2(Eigen::MatrixXd::Zero(1, 3)) //Make a 1X3 matrix
-{ this->generate_initial_weights();}
-//Overloaded constructor
-AI_Snake::AI_Snake(global::Map& i_map, global::SNAKE::Direction direction, global::Position initial_pos) :
-//Set weights and baises and map pointer
-    Snake(i_map, direction, initial_pos),
-    weights1(8, global::TRAIN::HL_COUNT),
-    weights2(global::TRAIN::HL_COUNT, 3),
-    bias1(Eigen::MatrixXd::Zero(1, global::TRAIN::HL_COUNT)),
-    bias2(Eigen::MatrixXd::Zero(1, 3))
-{this->generate_initial_weights();}
+// Overloaded constructor
+AI_Snake::AI_Snake(global::Map &i_map) : // Set weights and baises and map pointer
+                                         Snake(i_map),
+                                         weights1(8, global::TRAIN::HL_COUNT),                     // Make 8X(hidden layer count) matrix
+                                         weights2(global::TRAIN::HL_COUNT, 3),                     // Make (hidden layer count)X3 matrix
+                                         bias1(Eigen::MatrixXd::Zero(1, global::TRAIN::HL_COUNT)), // Make a 1X(hidden layer count) matrix
+                                         bias2(Eigen::MatrixXd::Zero(1, 3))                        // Make a 1X3 matrix
+{
+    this->generate_initial_weights();
+}
+// Overloaded constructor
+AI_Snake::AI_Snake(global::Map &i_map, global::SNAKE::Direction direction, global::Position initial_pos) : // Set weights and baises and map pointer
+                                                                                                           Snake(i_map, direction, initial_pos),
+                                                                                                           weights1(8, global::TRAIN::HL_COUNT),
+                                                                                                           weights2(global::TRAIN::HL_COUNT, 3),
+                                                                                                           bias1(Eigen::MatrixXd::Zero(1, global::TRAIN::HL_COUNT)),
+                                                                                                           bias2(Eigen::MatrixXd::Zero(1, 3))
+{
+    this->generate_initial_weights();
+}
 /*
 Update direction based off the max element from the output of the neural net. The AI has 3 options:
 1. Turn left
@@ -28,42 +30,52 @@ Update direction based off the max element from the output of the neural net. Th
 3. Turn right
 This algorith determines the the new direction based on the current direction: new direction = (3 + + max index + current direction) mod 4
 */
-void AI_Snake::update_direction() {
-    //Get inputs
+void AI_Snake::update_direction()
+{
+    // Get inputs
     Eigen::MatrixXd inputs = this->get_inputs();
-    //Get output by passing in inputs,weights, and biases into sequential model
-    Eigen::ArrayXd outputs = MODEL::Sequential(inputs, this->weights1,this->bias1, this-> weights2, this->bias2);
+    // Get output by passing in inputs,weights, and biases into sequential model
+    Eigen::ArrayXd outputs = MODEL::Sequential(inputs, this->weights1, this->bias1, this->weights2, this->bias2);
     Eigen::ArrayXd::Index max_index;
-    //Get max output
+    // Get max output
     double max_element = outputs.maxCoeff(&max_index);
-    //Get the direction based off the max element index
+    // Get the direction based off the max element index
     int new_direction = (3 + max_index + this->direction) % 4;
-    //Update direction
-    switch(new_direction) {
-        case 0: {
-            if (global::SNAKE::Direction::Left != this->direction) {
-                this->direction = global::SNAKE::Direction::Right;
-            }
-            break;
+    // Update direction
+    switch (new_direction)
+    {
+    case 0:
+    {
+        if (global::SNAKE::Direction::Left != this->direction)
+        {
+            this->direction = global::SNAKE::Direction::Right;
         }
-        case 1: {
-            if (global::SNAKE::Direction::Down != this->direction) {
-                this->direction = global::SNAKE::Direction::Up;
-            }
-            break;
+        break;
+    }
+    case 1:
+    {
+        if (global::SNAKE::Direction::Down != this->direction)
+        {
+            this->direction = global::SNAKE::Direction::Up;
         }
-        case 2: {
-            if (global::SNAKE::Direction::Right != this->direction) {
-                this->direction = global::SNAKE::Direction::Left;
-            }
-            break;
+        break;
+    }
+    case 2:
+    {
+        if (global::SNAKE::Direction::Right != this->direction)
+        {
+            this->direction = global::SNAKE::Direction::Left;
         }
-        case 3: {
-            if (global::SNAKE::Direction::Up != this->direction) {
-                this->direction = global::SNAKE::Direction::Down;
-            }
-            break;
+        break;
+    }
+    case 3:
+    {
+        if (global::SNAKE::Direction::Up != this->direction)
+        {
+            this->direction = global::SNAKE::Direction::Down;
         }
+        break;
+    }
     }
 }
 /*
@@ -71,54 +83,64 @@ Gets distance from food/snakes/walls in all 8 directions of snake. Then gets the
 between these distances and the maximum distance. The input will be possitive fro food and negative
 for snakes, walls, or anything else.
 */
-Eigen::MatrixXd AI_Snake::get_inputs() {
-    //Direction variables
+Eigen::MatrixXd AI_Snake::get_inputs()
+{
+    // Direction variables
     std::array<char, 8> step_x = {1, 1, 0, -1, -1, -1, 0, 1};
     std::array<char, 8> step_y = {0, -1, -1, -1, 0, 1, 1, 1};
-    //Initialize inputs matrix
+    // Initialize inputs matrix
     Eigen::MatrixXd inputs(1, 8);
-    //Iterate through each direction arround snakes head. The loop goes through each direction until 
-    //it completes a cirlce
-    for(unsigned char a = 2 * this->direction; ; a = (1 + a) % 8) {
-        //Calculate the input index relative to the current direction of the snake
+    // Iterate through each direction arround snakes head. The loop goes through each direction until
+    // it completes a cirlce
+    for (unsigned char a = 2 * this->direction;; a = (1 + a) % 8)
+    {
+        // Calculate the input index relative to the current direction of the snake
         unsigned char input_index = (a + 2 * (4 - direction)) % 8;
-        //Distance for how far the snake can move in the current direction
+        // Distance for how far the snake can move in the current direction
         unsigned short distance = 0;
-        //Position of snake head
+        // Position of snake head
         global::Position curr_pos = body[0];
 
-        //Move in current direction until food, wall, or snake is found
-        while (1) {
-            //increment distance
+        // Move in current direction until food, wall, or snake is found
+        while (1)
+        {
+            // increment distance
             distance++;
-            //update psotion based off direction
+            // update psotion based off direction
             curr_pos.x += step_x[a];
             curr_pos.y += step_y[a];
-            //check if the current position is in the map
-            if (in_map(curr_pos)) {
-                if (map_ptr->at(curr_pos.x).at(curr_pos.y).is_food) { //input possitive for food
-                    //The input value will be the max possible distance minus the current distance
+            // check if the current position is in the map
+            if (in_map(curr_pos))
+            {
+                if (map_ptr->at(curr_pos.x).at(curr_pos.y).is_food)
+                { // input possitive for food
+                    // The input value will be the max possible distance minus the current distance
                     inputs(0, input_index) = static_cast<double>(std::max(global::MAP::COLUMNS, global::MAP::ROWS) - distance);
                     break;
                 }
-                if (0 < map_ptr->at(curr_pos.x).at(curr_pos.y).total_snake_bodies || map_ptr->at(curr_pos.x).at(curr_pos.y).is_wall) { //input negative for snake or wall
-                    //The input value will current distance - max distance
+                if (0 < map_ptr->at(curr_pos.x).at(curr_pos.y).total_snake_bodies || map_ptr->at(curr_pos.x).at(curr_pos.y).is_wall)
+                { // input negative for snake or wall
+                    // The input value will current distance - max distance
                     inputs(0, input_index) = static_cast<double>(distance - std::max(global::MAP::COLUMNS, global::MAP::ROWS));
                     break;
                 }
-            } else {
-                //The input value will current distance - max distance
+            }
+            else
+            {
+                // The input value will current distance - max distance
                 inputs(0, input_index) = static_cast<double>(distance - std::max(global::MAP::COLUMNS, global::MAP::ROWS));
                 break;
             }
         }
-        //Break the loop if we completed the full circle around the snake's head
-        if (a == (7 + 2 * this->direction) % 8) break;
+        // Break the loop if we completed the full circle around the snake's head
+        if (a == (7 + 2 * this->direction) % 8)
+            break;
     }
     return inputs;
 }
-//Uses the set child_matrix method to set the weights and baises based off the parents weights and baises. The parents will be the top 2 scorers.
-void AI_Snake::set_child_weights_bias(AI_Snake parent1, AI_Snake parent2) {
+// Uses the set child_matrix method to set the weights and baises based off the parents weights and baises. The parents will be the top 2 scorers.
+void AI_Snake::set_child_weights_bias(AI_Snake parent1, AI_Snake parent2)
+{
     this->set_child_matrix(parent1.get_weights1(), parent2.get_weights1(), this->weights1);
     this->set_child_matrix(parent1.get_bias1(), parent2.get_bias1(), this->bias1);
     this->set_child_matrix(parent1.get_weights2(), parent2.get_weights2(), this->weights2);
@@ -131,19 +153,22 @@ We will then add some mutation so there is a little bit of variation from the pa
 will be added on to the weight.
 */
 
-void AI_Snake::set_child_matrix(Eigen::MatrixXd parent1, Eigen::MatrixXd parent2, Eigen::MatrixXd& child) {
-    //Mask matrix is a matrix of 1s and 0s where 1s represent parent 1 and zero represents parent 2.
-    Eigen::MatrixXd mask = Eigen::MatrixXd::Random(parent1.rows(), parent1.cols()).unaryExpr([](double elem) {
-        return elem > 0 ? 1.0 : 0.0;
-    });
-    //Print the weights and baises in case we want to update our predefined weights and baises
+void AI_Snake::set_child_matrix(Eigen::MatrixXd parent1, Eigen::MatrixXd parent2, Eigen::MatrixXd &child)
+{
+    // Mask matrix is a matrix of 1s and 0s where 1s represent parent 1 and zero represents parent 2.
+    Eigen::MatrixXd mask = Eigen::MatrixXd::Random(parent1.rows(), parent1.cols()).unaryExpr([](double elem)
+                                                                                             { return elem > 0 ? 1.0 : 0.0; });
+    // Print the weights and baises in case we want to update our predefined weights and baises
     std::cout << "Parent 1: Size " << parent1.size() << " Parent 2: Size " << parent2.size() << " mask size: " << mask.size() << "\n";
     child = mask.cwiseProduct(parent1) + (Eigen::MatrixXd::Ones(parent1.rows(), parent1.cols()) - mask).cwiseProduct(parent2);
 
     Eigen::MatrixXd mutation = Eigen::MatrixXd::Random(child.rows(), child.cols());
-    for(int i = 0; i < child.rows(); ++i) {
-        for(int j = 0; j < child.cols(); j++) {
-            if ((std::rand() / static_cast<double>(RAND_MAX)) < global::TRAIN::MUTATION_RATE) {
+    for (int i = 0; i < child.rows(); ++i)
+    {
+        for (int j = 0; j < child.cols(); j++)
+        {
+            if ((std::rand() / static_cast<double>(RAND_MAX)) < global::TRAIN::MUTATION_RATE)
+            {
                 child(i, j) += mutation(i, j);
             }
         }
@@ -152,15 +177,18 @@ void AI_Snake::set_child_matrix(Eigen::MatrixXd parent1, Eigen::MatrixXd parent2
 /*
 Generate a random number for each value in the matrix and normalize it with the normal distribution.
 */
-void AI_Snake::generate_random_matrix(double neuron_count, Eigen::MatrixXd& mat) {
+void AI_Snake::generate_random_matrix(double neuron_count, Eigen::MatrixXd &mat)
+{
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed);
-    //Create a normal distribution with a seed of zero and a mean of sqrt(2/neuron count)
+    // Create a normal distribution with a seed of zero and a mean of sqrt(2/neuron count)
     std::normal_distribution<double> distribution(0.0, std::sqrt(2.0 / neuron_count));
-    //This normal distrubiton function allows the weights to be small and centered around zero.
-    //This prevents vanishing and exploding gradients
-    for(int i = 0; i < mat.rows(); i++){
-        for(int j = 0; j < mat.cols(); j++) {
+    // This normal distrubiton function allows the weights to be small and centered around zero.
+    // This prevents vanishing and exploding gradients
+    for (int i = 0; i < mat.rows(); i++)
+    {
+        for (int j = 0; j < mat.cols(); j++)
+        {
             mat(i, j) = distribution(generator);
         }
     }
@@ -169,12 +197,16 @@ void AI_Snake::generate_random_matrix(double neuron_count, Eigen::MatrixXd& mat)
 If we are in training mode call generate randome matrix twice to get weights 1 and 2. This is because we initialize the snakes with random weights and zero vectors for the baises.
 Then print the weights and baises. If we are in game mode then set the weights and baises to a value that is predetermined.
 */
-void AI_Snake::generate_initial_weights() {
-    if (global::GAME::TRAINING_MODE) {
+void AI_Snake::generate_initial_weights()
+{
+    if (global::GAME::TRAINING_MODE)
+    {
         generate_random_matrix(global::TRAIN::HL_COUNT, this->weights1);
         generate_random_matrix(3, this->weights2);
         std::cout << " Weights 1 " << this->weights1 << " Weights 2 " << this->weights2 << " Bias 1 " << this->bias1 << " bias2 " << this->bias2 << "\n";
-    } else {
+    }
+    else
+    {
         this->weights1 << -1.23635, -0.000558379,     0.564241,     0.492897,    -0.437467,     0.842471,      1.52343,    -0.726721,    -0.219098,    -0.363192,     -0.15883,     0.950549,
                          -0.402162,     -0.27471,    -0.181202,    -0.179921,    0.0759702,    -0.927299,    -0.347762,     0.222699,      0.28318,  -0.00073691,    -0.869338,     0.207043,
                          -0.286209,   -0.0157219,   -0.0981461,  -0.00700724,   -0.0481736,     0.453225,   -0.0486449,     0.271944,      1.10376,     0.431583,    -0.301661,      2.01778,
@@ -199,19 +231,23 @@ void AI_Snake::generate_initial_weights() {
         this->bias2 << 0.0, -0.224962, 0.0;
     }
 }
-//Weights 1 getter
-Eigen::MatrixXd AI_Snake::get_weights1() {
+// Weights 1 getter
+Eigen::MatrixXd AI_Snake::get_weights1()
+{
     return this->weights1;
 }
-//Weight 2 getter
-Eigen::MatrixXd AI_Snake::get_weights2() {
+// Weight 2 getter
+Eigen::MatrixXd AI_Snake::get_weights2()
+{
     return this->weights2;
 }
-//Bais 1 getter
-Eigen::MatrixXd AI_Snake::get_bias1() {
+// Bais 1 getter
+Eigen::MatrixXd AI_Snake::get_bias1()
+{
     return this->bias1;
 }
-//Bais 2 getter
-Eigen::MatrixXd AI_Snake::get_bias2() {
+// Bais 2 getter
+Eigen::MatrixXd AI_Snake::get_bias2()
+{
     return this->bias2;
 }

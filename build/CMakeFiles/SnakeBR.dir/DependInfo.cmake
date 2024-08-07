@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o.d"
   "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o.d"
   "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o.d"
+  "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o.d"
   "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/snake.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/snake.cpp.o.d"
   "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/window.cpp" "CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o" "gcc" "CMakeFiles/SnakeBR.dir/src/cpp/window.cpp.o.d"
   )

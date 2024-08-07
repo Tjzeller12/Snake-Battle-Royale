@@ -81,12 +81,12 @@ clean: CMakeFiles/SnakeBR.dir/clean
 CMakeFiles/SnakeBR.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeBR.dir/build.make CMakeFiles/SnakeBR.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target SnakeBR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target SnakeBR"
 .PHONY : CMakeFiles/SnakeBR.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SnakeBR.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SnakeBR.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thomaszeller/Desktop/SnakeBR/build/CMakeFiles 0
 .PHONY : CMakeFiles/SnakeBR.dir/rule

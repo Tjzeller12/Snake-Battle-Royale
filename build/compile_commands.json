@@ -1,6 +1,12 @@
 [
 {
   "directory": "/Users/thomaszeller/Desktop/SnakeBR/build",
+  "command": "/usr/bin/clang++  -I/Users/thomaszeller/Desktop/SnakeBR/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp",
+  "file": "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/AI_snake.cpp",
+  "output": "CMakeFiles/SnakeBR.dir/src/cpp/AI_snake.cpp.o"
+},
+{
+  "directory": "/Users/thomaszeller/Desktop/SnakeBR/build",
   "command": "/usr/bin/clang++  -I/Users/thomaszeller/Desktop/SnakeBR/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp",
   "file": "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/game.cpp",
   "output": "CMakeFiles/SnakeBR.dir/src/cpp/game.cpp.o"
@@ -10,6 +16,12 @@
   "command": "/usr/bin/clang++  -I/Users/thomaszeller/Desktop/SnakeBR/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp",
   "file": "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/main.cpp",
   "output": "CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o"
+},
+{
+  "directory": "/Users/thomaszeller/Desktop/SnakeBR/build",
+  "command": "/usr/bin/clang++  -I/Users/thomaszeller/Desktop/SnakeBR/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o -c /Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp",
+  "file": "/Users/thomaszeller/Desktop/SnakeBR/src/cpp/player_snake.cpp",
+  "output": "CMakeFiles/SnakeBR.dir/src/cpp/player_snake.cpp.o"
 },
 {
   "directory": "/Users/thomaszeller/Desktop/SnakeBR/build",
