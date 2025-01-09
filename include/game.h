@@ -5,6 +5,7 @@
 #include "snake.h"
 #include "AI_snake.h"
 #include "player_snake.h"
+#include "AVLTree.h"
 #include <iostream>
 #include <vector>
 #ifndef GAME_H
@@ -15,7 +16,7 @@ private:
     Window window;
     Window leaderBoardWindow;
     std::vector<Snake *> snakes;
-    std::vector<Snake *> leaderboard;
+    AVLTree<global::LeaderboardEntry> leaderBoardTree;
     global::Map *map;
     short generation;
 
@@ -38,9 +39,6 @@ public:
     short get_max_score();
     short get_generation();
     AI_Snake get_max_wb();
-    int swap(int index1, int index2);
-    int partition(int start, int end);
-    void quick_sort(int start, int end);
-    void sort_snakes();
+
 };
 #endif

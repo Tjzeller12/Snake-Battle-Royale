@@ -71,7 +71,6 @@ void Game::init()
         game_started = draw_start();
     }
     this->make_snakes();
-    this->leaderboard = this->snakes;
 }
 /*
 Updates the map and the snakes.
@@ -85,7 +84,7 @@ void Game::update()
         if (!snake->is_dead())
         { // If the snake is not dead update its direction, make it eat, and move
             snake->update_direction();
-            snake->try_to_eat();
+            snake->try_to_eat(leaderBoardTree);
             snake->move();
         }
         else
@@ -146,83 +145,49 @@ void Game::draw()
         snakes[i]->draw();
     }
     // Draw leaderboard
-    sort_snakes();
-    for (int i = 0; i < leaderboard.size(); i++)
-    {
-        Snake *currSnake = leaderboard[i];
+    std::vector<global::LeaderboardEntry> leaderboard = leaderBoardTree.toVector();
+    for (int i = 0; i < leaderboard.size(); i++) {
+        // Use shared_ptr directly instead of raw pointer
+        global::LeaderboardEntry currSnake = leaderboard[i];
         Color rectangleColor;
+
         // Snake blocks will be on the right of the game, and they will take up an equal amount of space that depends on the amount of snakes we have
-        Rectangle currentSnakeBlock = {global::WINDOW::width, static_cast<float>(global::WINDOW::height / leaderboard.size()) * i, global::WINDOW::LBwidth, static_cast<float>(global::WINDOW::height / leaderboard.size())};
+        Rectangle currentSnakeBlock = {
+            global::WINDOW::width,
+            static_cast<float>(global::WINDOW::height / leaderboard.size()) * i,
+            global::WINDOW::LBwidth,
+            static_cast<float>(global::WINDOW::height / leaderboard.size())
+        };
+
         // Have every other row be a different color
-        if (i % 2 == 0)
-        {
+        if (i % 2 == 0) {
             rectangleColor = Color{1, 0, 30, 255};
-        }
-        else
-        {
+        } else {
             rectangleColor = Color{3, 0, 60, 255};
         }
+
         DrawRectangleRec(currentSnakeBlock, rectangleColor);
-        // Draw the snakes color, name, and score in the snake block
-        DrawText(currSnake->get_name(), currentSnakeBlock.x + 12, currentSnakeBlock.y, 5, WHITE);
+
+        // Draw the snake's color, name, and score in the snake block
+        DrawText(currSnake.name, currentSnakeBlock.x + 12, currentSnakeBlock.y, 5, WHITE);
+
         char scoreText[50];
-        snprintf(scoreText, sizeof(scoreText), "%d", currSnake->get_score());
+        snprintf(scoreText, sizeof(scoreText), "%d", currSnake.score);
         DrawText(scoreText, currentSnakeBlock.x + 150, currentSnakeBlock.y, 5, WHITE);
+
         // Draw snake color
-        DrawRectangle(global::WINDOW::width + 1, ((global::WINDOW::height / leaderboard.size()) * i) + 1, (global::WINDOW::height / leaderboard.size()) - 2, (global::WINDOW::height / leaderboard.size()) - 2, currSnake->get_color());
+        DrawRectangle(
+            global::WINDOW::width + 1,
+            ((global::WINDOW::height / leaderboard.size()) * i) + 1,
+            (global::WINDOW::height / leaderboard.size()) - 2,
+            (global::WINDOW::height / leaderboard.size()) - 2,
+            currSnake.color
+        );
     }
     window.endDrawing();
+
 }
-/*
-This function sorts the leaderboard so we can display the snakes in order by score.
-I implemented a quick sort algorithm.
-*/
-void Game::sort_snakes()
-{
-    quick_sort(0, leaderboard.size() - 1);
-}
-// Recurisive quick sort algorithm
-void Game::quick_sort(int start, int end)
-{
-    if (start < end)
-    {
-        int partitionIndex = partition(start, end);
-        quick_sort(start, partitionIndex - 1);
-        quick_sort(partitionIndex + 1, end);
-    }
-}
-// Quick sort helper method. Partitions list using the start index as the pivot
-int Game::partition(int start, int end)
-{
-    int pivot = start;
-    int left = start + 1;
-    int right = end;
-    while (left <= right)
-    {
-        while (left <= right && leaderboard[left]->compare_to(leaderboard[pivot]) >= 0)
-        {
-            left++;
-        }
-        while (left <= right && leaderboard[right]->compare_to(leaderboard[pivot]) < 0)
-        {
-            right--;
-        }
-        if (left < right)
-        {
-            swap(left, right);
-        }
-    }
-    // Move pivot into place
-    swap(right, pivot);
-    return right;
-}
-// Quick sort helper method. Swaps two elements in the vector
-int Game::swap(int index1, int index2)
-{
-    Snake *temp = leaderboard[index1];
-    leaderboard[index1] = leaderboard[index2];
-    leaderboard[index2] = temp;
-}
+
 
 /*
 Initializes every snake and appends them to the snakes vector.
@@ -235,6 +200,7 @@ void Game::make_snakes()
     player_snake->set_name("Player Snake");
     player_snake->set_color(Color{0, 255, 0, 255});
     snakes.push_back(player_snake);
+    leaderBoardTree.insert(global::LeaderboardEntry(player_snake->get_name(), player_snake->get_score(), player_snake->get_color()));
     char buffer[15];
     // Make AI snakes
     for (int i = 1; i <= global::SNAKE::START_SNAKE_AI_COUNT; i++)
@@ -245,6 +211,7 @@ void Game::make_snakes()
         current_snake->set_name(buffer);
         current_snake->set_color(Color{0, static_cast<unsigned char>(i * (180 / global::SNAKE::START_SNAKE_AI_COUNT) + 50), 0, 255});
         snakes.push_back(current_snake);
+        leaderBoardTree.insert(global::LeaderboardEntry(current_snake->get_name(), current_snake->get_score(), current_snake->get_color()));
     }
 }
 // Getter for generation
@@ -284,7 +251,9 @@ void Game::train()
     // reset scores
     for (int i = 0; i < snakes.size(); i++)
     {
+        leaderBoardTree.remove(global::LeaderboardEntry(snakes[i]->get_name(), snakes[i]->get_score(), snakes[i]->get_color()));
         snakes[i]->set_score(0);
+        leaderBoardTree.insert(global::LeaderboardEntry(snakes[i]->get_name(), snakes[i]->get_score(), snakes[i]->get_color()));
     }
     // respond snakes
     spawn_AI();

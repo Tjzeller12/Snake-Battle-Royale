@@ -1,13 +1,24 @@
 #include "raylib.h"
 #include "Window.h"
 #include "game.h"
+#include "AVLTree.h"
+#include "Global.h"
 #include <thread>
 #include <chrono>
-
 int main()
 {
+    // Test AVL Tree
+    AVLTree<global::LeaderboardEntry> testTree;
+    testTree.insert(global::LeaderboardEntry("snake1", 10, Color{1, 0, 30, 255}));
+    testTree.insert(global::LeaderboardEntry("snake2", 0, Color{1, 0, 30, 255}));
+    testTree.insert(global::LeaderboardEntry("snake3", 5, Color{1, 0, 30, 255}));
+    testTree.printTree();
+    testTree.remove(global::LeaderboardEntry("snake3", 5, Color{1, 0, 30, 255}));
+    testTree.printTree();
+    testTree.remove(global::LeaderboardEntry("snake2", 0, Color{1, 0, 30, 255}));
+    testTree.printTree();
     // Initialization
-    Game game = Game();
+    Game game;
     game.init();
     bool game_ended = false;
     // Main game loop

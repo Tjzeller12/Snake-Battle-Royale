@@ -6,6 +6,7 @@
 #include <chrono>
 #include "Model.h"
 #include <cstring>
+
 /*
 Initialize map pointer, direction, place on map, and set food timer
 */
@@ -28,6 +29,40 @@ Snake::Snake(global::Map &i_map, global::SNAKE::Direction direction, global::Pos
     food_timer = global::GAME::FOOD_TIMER_COUNT;
     score = 0;
 }
+bool Snake::operator<(const Snake& other) const {
+    if(score < other.get_score()) {
+        return true;
+    } else if(score == other.get_score() && name < other.get_name()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+bool Snake::operator>(const Snake& other) const {
+    if(score > other.get_score()) {
+        return true;
+    } else if(score == other.get_score() && name > other.get_name()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+bool Snake::operator==(const Snake& other) const{
+    if(score == other.get_score() && name == other.get_name()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+bool Snake::operator!=(const Snake& other) const {
+    return !(*this == other);
+}
+bool Snake::operator<=(const Snake& other) const {
+    return (*this == other) || (*this < other);
+}
+bool Snake::operator>=(const Snake& other) const {
+    return (*this == other) || (*this > other);
+}
 // Direction setter
 void Snake::set_direction(global::SNAKE::Direction direction)
 {
@@ -40,7 +75,7 @@ global::SNAKE::Direction Snake::get_direction()
     return this->direction;
 }
 // Score getter
-short Snake::get_score()
+short Snake::get_score() const
 {
     return this->score;
 }
@@ -66,7 +101,7 @@ void Snake::set_name(char name[])
     this->name[sizeof(this->name) - 1] = '\0';
 }
 // Name getter
-const char *Snake::get_name()
+const char *Snake::get_name() const
 {
     return this->name;
 }
@@ -165,7 +200,7 @@ void Snake::reset_timer()
 If the head of the snake is in a position that has food: increase score, reset the food timer, remvoe the food off the map
 If there is no food then decrement the food timer.
 */
-void Snake::try_to_eat()
+void Snake::try_to_eat(AVLTree<global::LeaderboardEntry>& leaderBoardTree)
 {
 
     if ((*map_ptr)[this->body[0].x][this->body[0].y].is_food)
@@ -175,7 +210,9 @@ void Snake::try_to_eat()
         global::Position new_food_pos = map_functions::get_random_empty_position(*map_ptr);
         (*map_ptr)[new_food_pos.x][new_food_pos.y].is_food = true;
         this->reset_timer();
+        leaderBoardTree.remove(global::LeaderboardEntry(this->get_name(), this->get_score(), this->get_color()));
         this->score++;
+        leaderBoardTree.insert(global::LeaderboardEntry(this->get_name(), this->get_score(), this->get_color()));
     }
     else
     {

@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "Window.h"
 #include "Global.h"
+#include "AVLTree.h"
 #include <iostream>
 // Snake class with coordinates and direction
 class Snake
@@ -22,12 +23,17 @@ public:
 
     // Ensures correct destructor is called for dirived classes
     virtual ~Snake() = default;
-
+    bool operator<(const Snake& other) const;
+    bool operator>(const Snake& other) const;
+    bool operator==(const Snake& other) const;
+    bool operator!=(const Snake& other) const;
+    bool operator<=(const Snake& other) const;
+    bool operator>=(const Snake& other) const;
     void set_direction(global::SNAKE::Direction direction);
     void set_color(Color color);
     Color get_color();
     void set_name(char name[]);
-    const char *get_name();
+    const char *get_name() const;
     void move();
     void reset();
     virtual void update_direction() = 0;
@@ -35,10 +41,10 @@ public:
     void update_map();
     void grow();
     std::vector<global::Position> &get_body();
-    short get_score();
+    short get_score() const;
     void set_score(short scr);
     bool is_dead();
-    void try_to_eat();
+    void try_to_eat(AVLTree<global::LeaderboardEntry>& leaderBoardTree);
     global::SNAKE::Direction get_direction();
     void draw();
     bool in_map(global::Position pos);

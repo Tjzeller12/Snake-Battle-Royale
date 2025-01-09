@@ -930,6 +930,7 @@ CMakeFiles/SnakeBR.dir/src/cpp/main.cpp.o: \
   /Users/thomaszeller/Desktop/SnakeBR/include/eigen3/Eigen/src/Eigenvalues/./RealQZ.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/snake.h \
+  /Users/thomaszeller/Desktop/SnakeBR/include/AVLTree.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/AI_snake.h \
   /Users/thomaszeller/Desktop/SnakeBR/include/player_snake.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/thread

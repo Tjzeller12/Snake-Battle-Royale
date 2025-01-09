@@ -159,6 +159,7 @@ void AI_Snake::set_child_matrix(Eigen::MatrixXd parent1, Eigen::MatrixXd parent2
     Eigen::MatrixXd mask = Eigen::MatrixXd::Random(parent1.rows(), parent1.cols()).unaryExpr([](double elem)
                                                                                              { return elem > 0 ? 1.0 : 0.0; });
     // Print the weights and baises in case we want to update our predefined weights and baises
+    std::cout << "Generation Information: " << std::endl;
     std::cout << "Parent 1: Size " << parent1.size() << " Parent 2: Size " << parent2.size() << " mask size: " << mask.size() << "\n";
     child = mask.cwiseProduct(parent1) + (Eigen::MatrixXd::Ones(parent1.rows(), parent1.cols()) - mask).cwiseProduct(parent2);
 
@@ -203,6 +204,7 @@ void AI_Snake::generate_initial_weights()
     {
         generate_random_matrix(global::TRAIN::HL_COUNT, this->weights1);
         generate_random_matrix(3, this->weights2);
+        std::cout << " Initial Wieghts and Biases: " << std::endl;
         std::cout << " Weights 1 " << this->weights1 << " Weights 2 " << this->weights2 << " Bias 1 " << this->bias1 << " bias2 " << this->bias2 << "\n";
     }
     else

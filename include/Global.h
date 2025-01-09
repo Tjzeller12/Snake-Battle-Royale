@@ -2,6 +2,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <cstring>
 #include <eigen3/Eigen/Dense>
 namespace global
 {
@@ -63,6 +64,56 @@ namespace global
         bool operator!=(const Position &i_positon)
         {
             return x != i_positon.x || y != i_positon.y;
+        }
+    };
+
+    struct LeaderboardEntry {
+        char name[15];
+        int score;
+        Color color;
+
+        LeaderboardEntry(const char name[], int score, Color color) : score(score), color(color) {
+            std::strncpy(this->name, name, sizeof(this->name) - 1); 
+            this->name[sizeof(this->name) - 1] = '\0';
+        }
+
+        // Comparison operators for ordering
+        bool operator<(const LeaderboardEntry& other) const {
+            if (score != other.score) {
+                return score < other.score;
+            }
+            return strcmp(name, other.name) < 0;
+        }
+
+        bool operator>(const LeaderboardEntry& other) const {
+            if (score != other.score) {
+                return score > other.score;
+            }
+            return strcmp(name, other.name) > 0;
+        }
+
+        bool operator==(const LeaderboardEntry& other) const {
+            return score == other.score && strcmp(name, other.name) == 0;
+        }
+
+        bool operator<=(const LeaderboardEntry& other) const {
+            if (score != other.score) {
+                return score < other.score;
+            }
+            return strcmp(name, other.name) <= 0;
+        }
+
+        bool operator>=(const LeaderboardEntry& other) const {
+            if (score != other.score) {
+                return score > other.score;
+            }
+            return strcmp(name, other.name) >= 0;
+        }
+
+        std::string toString() const {
+            std::stringstream ss;
+            ss << "Name: " << name << ", Score: " << score;
+            return ss.str();
         }
     };
 
